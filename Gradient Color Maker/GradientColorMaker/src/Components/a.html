@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gradient Color Generator</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+      }
+      .container {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        top: 30%;
+      }
+      .btn {
+        width: 350px;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .btn button {
+        height: 40px;
+        width: 120px;
+        border-radius: 20px;
+      }
+      .content h2 {
+        border: none;
+        outline: none;
+        box-shadow: 0px 0px 4px 1px rgb(56, 162, 189);
+        text-align: center;
+        margin-top: 60px;
+      }
+      .copycode {
+        padding-top: 15px;
+        border-left: 1px solid black;
+        padding-left: 20px;
+        height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="btn">
+        <button id="color1">button1</button>
+        <button id="color2">button2</button>
+      </div>
+      <div class="content">
+        <h2>Click to copy the code</h2>
+        <div class="copycode">
+          background-image : linear-gradient(to right, rgb(201,2,300)),
+          rgb(2,40,50);
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const btn1 = document.getElementById("color1");
+      const btn2 = document.getElementById("color2");
+      const code = document.querySelector(".copycode");
+      let hex1 = "#fff";
+      let hex2 = "#000";
+
+      const handler = () => {
+        let values = "0123456789abcdef";
+        let hex = "#";
+        for (let i = 0; i < 6; i++) {
+          hex = hex + values[Math.floor(Math.random() * 16)];
+        }
+        return hex;
+        console.log(hex);
+      };
+
+      const handler1 = () => {
+        hex1 = handler();
+        btn1.innerHTML = hex1;
+        document.body.style.backgroundImage = `linear-gradient(to right , ${hex1})`;
+        code.innerHTML = `background-image : linear-gradient(to right,
+          ${hex1}, ${hex2})`;
+        return hex1;
+      };
+      const handler2 = () => {
+        hex2 = handler();
+        btn2.innerHTML = hex2;
+        document.body.style.backgroundImage = `linear-gradient(to right ,${hex1},${hex2})`;
+        code.innerHTML = `background-image : linear-gradient(to right,
+          ${hex1}, ${hex2})`;
+        return hex2;
+      };
+
+      code.addEventListener("click", () => {
+        navigator.clipboard.writeText(code.innerText);
+        alert("Copied");
+      });
+
+      btn1.addEventListener("click", handler1);
+      btn2.addEventListener("click", handler2);
+    </script>
+  </body>
+</html>
